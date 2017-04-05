@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ajax</title>
+    </head>
+    <body>
+        <h1>Hi, i am on node.js</h1>
+        <button onclick="load()">Load</button>
+        <script type="text/javascript">
+            
+        function load(){
+            var xhr = new XMLHttpRequest();
+            console.dir(xhr);
+            
+            xhr.open('GET', "https://api.github.com/repos/andrewshengilevych/ITEA", true)
+            xhr.send();
+            
+            var i = 0;
+            setInterval(function(){
+                        if(i === 10){
+                clearInterval();
+            }else{
+                console.log(i++)
+            }
+        }, 1000);
+        xhr.onreadystatechange = function(){
+            if(xhr.status != 200 && xhr.responseText.length < 0){
+                console.log('Error')
+            }else if (xhr.readyState == 4){
+                var result = JSON.parse(xhr.responseText);
+                console.log(result)
+                console.log(result.name)
+                console.log(result.owner.login)
+            }
+        }
+    }
+            //node server.js
+            //npm install node-static
+
+    
+        </script>
+    </body>
+</html>
